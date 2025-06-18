@@ -1,0 +1,23 @@
+{
+  "name": "mmrrc-ddb-express",
+  "version": "1.0.0",
+  "description": "mmrrc GO drill down browser rest api",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rabshanrahman/mmrrc-ddb-express.git"
+  },
+  "author": "Rabshan Rahman",
+  "license": "GPL-3.0-or-later",
+  "bugs": {
+    "url": "https://github.com/rabshanrahman/mmrrc-ddb-express/issues"
+  },
+  "homepage": "https://github.com/rabshanrahman/mmrrc-ddb-express#readme",
+  "dependencies": {
+    "express": "^5.1.0",
+    "mongoose": "^8.16.0"
+  }
+}
