@@ -24,4 +24,4 @@ const GOBasicSchema =
         mmrrcStrains : [String]
     }, { strict: false });
 
-module.exports = mongoose.model('GOBasic', GOBasicSchema);
+module.exports = mongoose.model('GOBasic', GOBasicSchema, 'go-basic');

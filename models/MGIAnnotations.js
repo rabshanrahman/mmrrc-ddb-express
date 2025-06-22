@@ -21,4 +21,4 @@ const MGIAnnotationSchema =
         Gene_Product_Form_ID : String
     }, { strict: false });
 
-module.exports = mongoose.model('MGIAnnotations', MGIAnnotationSchema);
+module.exports = mongoose.model('MGIAnnotations', MGIAnnotationSchema, 'mgi-annotations');

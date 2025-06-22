@@ -16,4 +16,4 @@ const StrainCatalogSchema =
         PUBMED_IDS : String,
     }, { strict: false })
 
-module.exports = mongoose.model('MMRRCStrains', StrainCatalogSchema);
+module.exports = mongoose.model('MMRRCStrains', StrainCatalogSchema, 'strain-catalog');
