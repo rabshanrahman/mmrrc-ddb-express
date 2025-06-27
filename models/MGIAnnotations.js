@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const MGIAnnotationSchema = 
+const mgiAnnotationSchema = 
     new mongoose.Schema({
         DB : String,
         DB_Object_ID : String,
@@ -21,4 +21,4 @@ const MGIAnnotationSchema =
         Gene_Product_Form_ID : String
     }, { strict: false });
 
-module.exports = mongoose.model('MGIAnnotations', MGIAnnotationSchema, 'mgi-annotations');
+module.exports = mongoose.model('mgiAnnotations', mgiAnnotationSchema, 'mgi-annotations');

@@ -25,6 +25,7 @@ const processCatalog = async (jobId) => {
     if (!job) throw new Error('Job not found');
 
     try {
+        console.log(`📖 Starting to Annotate the GO Collection By Indexing MMRRC -> MGI -> GO`);
         job.status = 'running';
         await job.save();
 

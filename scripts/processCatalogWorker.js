@@ -29,6 +29,8 @@ const db = require('../models');
                 const strain = await db.strainCatalog.findById(_id).lean();
                 const geneAccessionId = strain.MGI_GENE_ACCESSION_ID;
                 const strainURL = strain.SDS_URL;
+                const strainStockId = strain.STRAINSTOCK_ID;
+                const otherNames = strain.OTHER_NAMES;
 
                 if (!geneAccessionId || !strainURL) {
                     processed++;
@@ -43,16 +45,24 @@ const db = require('../models');
                     bulkOps.push({
                         updateOne: {
                             filter: { id: `http://purl.obolibrary.org/obo/GO_${a.GO_ID.slice(3)}` },
-                            update: { $addToSet: { mmrrcStrains: strainURL } }
+                            update: { 
+                                $addToSet: { 
+                                    mmrrcStrains: {
+                                        sdsUrl: strainURL,
+                                        strainStockId: strainStockId,
+                                        otherNames: otherNames,
+                                    }
+                                }
+                            }
                         }
                     });
-                }
+                };
 
                 if (bulkOps.length >= 500) {
                     await db.go.bulkWrite(bulkOps);
                     written += bulkOps.length;
                     bulkOps = [];
-                }
+                };
 
                 processed++;
 
@@ -61,13 +71,13 @@ const db = require('../models');
                     await db.jobStatus.findByIdAndUpdate(jobId, {
                         $inc: { processed: 100 },
                     });
-                }
+                };
 
                 if (written % 100 === 0) {
                     await db.jobStatus.findByIdAndUpdate(jobId, {
                         $inc: { written: 100 }
                     });
-                }
+                };
 
             } catch (strainErr) {
                 // Log individual strain processing error

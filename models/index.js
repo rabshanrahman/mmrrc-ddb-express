@@ -5,9 +5,11 @@ const db = {};
 
 db.mongoose = mongoose;
 
-db.go = require('./GOBasic');
-db.mgi = require('./MGIAnnotations');
-db.strainCatalog = require('./MMRRCStrains');
+db.go = require('./goBasic');
+db.mgi = require('./mgiAnnotations');
+db.strainCatalog = require('./mmrrcStrains');
 db.jobStatus = require('./jobStatus');
+db.strainImport = require('./strainImport');
+db.goEdges = require('./goEdge');
 
 module.exports = db;

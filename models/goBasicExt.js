@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const goBasicSchema = 
+const goBasicExtSchema = 
     new mongoose.Schema({
         id : String, 
         lbl : String,
@@ -21,10 +21,14 @@ const goBasicSchema =
             }],
             deprecated : Boolean
         },
-        mmrrcStrains : [String]
+        mmrrcStrains : [{
+            sdsUrl : String,
+            strainStockId : String,
+            otherNames : String
+        }]
     }, { 
         strict: false,
         timestamps: true
     });
 
-module.exports = mongoose.model('goBasic', goBasicSchema, 'go-basic');
+module.exports = mongoose.model('goBasicExt', goBasicExtSchema, 'go-basic-ext');
