@@ -29,6 +29,7 @@ const db = require('../models');
                 const strain = await db.strainCatalog.findById(_id).lean();
                 const geneAccessionId = strain.MGI_GENE_ACCESSION_ID;
                 const strainURL = strain.SDS_URL;
+                const strainOtherNames = strain.OTHER_NAMES;
 
                 if (!geneAccessionId || !strainURL) {
                     processed++;
@@ -43,7 +44,12 @@ const db = require('../models');
                     bulkOps.push({
                         updateOne: {
                             filter: { id: `http://purl.obolibrary.org/obo/GO_${a.GO_ID.slice(3)}` },
-                            update: { $addToSet: { mmrrcStrains: strainURL } }
+                            update: { $addToSet: { 
+                                mmrrcStrains: {
+                                    otherNames: strainOtherNames,
+                                    url: strainURL
+                                } 
+                            } }
                         }
                     });
                 };

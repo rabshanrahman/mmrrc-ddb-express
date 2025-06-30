@@ -21,16 +21,24 @@ const goBasicSchema =
             }],
             deprecated : Boolean
         },
-        mmrrcStrains : [String]
+        mmrrcStrains : [{
+            otherNames: String,
+            url: String
+        }]
     }, { 
         strict: false,
         timestamps: true
     });
 
-    goBasicSchema.virtual('strainDetails', {
-        ref: 'mmrrcStrains',
-        localField: 'mmrrcStrains',
-        foreignField: 'SDS_URL'
-    })
+/*
+goBasicSchema.virtual('strainDetails', {
+    ref: 'mmrrcStrains',
+    localField: 'mmrrcStrains',
+    foreignField: 'SDS_URL'
+})
+
+goBasicSchema.set('toJSON', { virtuals: true });
+goBasicSchema.set('toObject', { virtuals: true });
+*/
 
 module.exports = mongoose.model('goBasic', goBasicSchema, 'go-basic');
