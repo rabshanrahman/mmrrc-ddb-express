@@ -6,7 +6,7 @@ router.get('/go/:id', async (req, res) => {
     try {
         const term = await db.go.findOne({
             id: req.params.id
-        });
+        })
         if (!term) return res.status(404).json({ message: 'GO ID/URL not found' });
 
         res.status(200).json(term);

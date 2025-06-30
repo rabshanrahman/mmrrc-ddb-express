@@ -27,4 +27,10 @@ const goBasicSchema =
         timestamps: true
     });
 
+    goBasicSchema.virtual('strainDetails', {
+        ref: 'mmrrcStrains',
+        localField: 'mmrrcStrains',
+        foreignField: 'SDS_URL'
+    })
+
 module.exports = mongoose.model('goBasic', goBasicSchema, 'go-basic');
