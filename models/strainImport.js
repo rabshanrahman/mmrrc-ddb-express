@@ -1,11 +1,32 @@
-const mongoose = require('mongoose');
+const { DataTypes } = require('sequelize');
 
-const strainImportSchema = new mongoose.Schema({
-    jobId: String,
-    row: Number,
-    strainStockId: String,
-    mgiAlleleAccessionId: String,
-    mgiGeneAccessionId: String
-}, { timestamps: true });
+module.exports = (sequelize) => {
+    const StrainImport = sequelize.define('StrainImport', {
+        id: {
+            type: DataTypes.INTEGER,
+            primaryKey: true,
+            autoIncrement: true
+        },
+        jobId: {
+            type: DataTypes.STRING
+        },
+        row: {
+            type: DataTypes.INTEGER
+        },
+        strainStockId: {
+            type: DataTypes.STRING
+        },
+        mgiAlleleAccessionId: {
+            type: DataTypes.STRING
+        },
+        mgiGeneAccessionId: {
+            type: DataTypes.STRING
+        }
+    }, {
+        tableName: 'strain-import',
+        timestamps: true,
+        underscored: false
+    });
 
-module.exports = mongoose.model('strainImport', strainImportSchema, 'strain-import');
+    return StrainImport;
+};

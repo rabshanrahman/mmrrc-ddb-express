@@ -1,23 +1,50 @@
-const mongoose = require('mongoose');
+const { DataTypes } = require('sequelize');
 
-const JobStatusSchema = new mongoose.Schema({
-    jobType: { type: String },
-    status: { type: String, enum: ['pending', 'running', 'completed', 'error'], default: 'pending' },
-    total: { type: Number, default: 0 },
-    processed: { type: Number, default: 0 },
-    written: { type: Number, default: 0 },
-    error: { type: String, default: null },
-    startedAt: { type: Date, default: Date.now },
-    completedAt: { type: Date },
-    workerErrors: [
-        {
-          strainId: mongoose.Schema.Types.ObjectId,
-          message: String,
-          detail: String,
+module.exports = (sequelize) => {
+    const JobStatus = sequelize.define('JobStatus', {
+        id: {
+            type: DataTypes.INTEGER,
+            primaryKey: true,
+            autoIncrement: true
+        },
+        jobType: {
+            type: DataTypes.STRING
+        },
+        status: {
+            type: DataTypes.ENUM('pending', 'running', 'completed', 'error'),
+            defaultValue: 'pending'
+        },
+        total: {
+            type: DataTypes.INTEGER,
+            defaultValue: 0
+        },
+        processed: {
+            type: DataTypes.INTEGER,
+            defaultValue: 0
+        },
+        written: {
+            type: DataTypes.INTEGER,
+            defaultValue: 0
+        },
+        error: {
+            type: DataTypes.TEXT,
+            defaultValue: null
+        },
+        startedAt: {
+            type: DataTypes.DATE,
+            defaultValue: DataTypes.NOW
+        },
+        completedAt: {
+            type: DataTypes.DATE
+        },
+        workerErrors: {
+            type: DataTypes.JSON
         }
-      ]
-  }, {
-    timestamps: true
-  });
-  
-module.exports = mongoose.model('jobStatus', JobStatusSchema, 'job-status');
+    }, {
+        tableName: 'job-status',
+        timestamps: true,
+        underscored: false
+    });
+
+    return JobStatus;
+};
