@@ -62,7 +62,7 @@ module.exports = (sequelize) => {
         }
     }, {
         tableName: 'search_catalog',
-        timestamps: true,
+        timestamps: false,
         underscored: false,
         indexes: [
             {

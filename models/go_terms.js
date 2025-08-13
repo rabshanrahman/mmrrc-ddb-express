@@ -25,7 +25,7 @@ module.exports = (sequelize) => {
         }
     }, {
         tableName: 'go_terms',
-        timestamps: true,
+        timestamps: false,
         underscored: false,
         indexes: [
             {
