@@ -1,6 +1,8 @@
 const express = require('express');
 const cors = require('cors');
 require('dotenv').config();
+const https = require('https');
+const fs = require('fs');
 
 // Import models and database connections
 const db = require('./models');
@@ -81,13 +83,22 @@ const initializeApp = async () => {
             console.log('Database models synced successfully.');
         }
         
-        // Start server
+        // Start server. 
         const PORT = process.env.PORT || 3000;
-        app.listen(PORT, () => {
-            console.log(`Server running on port ${PORT}`);
-            console.log(`Environment: ${process.env.NODE_ENV || 'development'}`);
-            console.log(`Health check: http://localhost:${PORT}/health`);
-        });
+        if (process.env.NODE_ENV === 'production' && process.env.SSL_CERT && process.env.SSL_KEY) {
+            const options = {
+                key: fs.readFileSync(process.env.SSL_KEY),
+                cert: fs.readFileSync(process.env.SSL_CERT)
+            };
+            https.createServer(options, app).listen(443, () => {
+                console.log('HTTPS Server running on port 443');
+            });
+        } else {
+            // HTTP fallback
+            app.listen(PORT, () => {
+                console.log(`HTTP Server running on port ${PORT}`);
+            });
+        }
         
     } catch (error) {
         console.error('Failed to initialize application:', error);
